@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Contacto - EcoMarket</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #form-feedback {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contacto - EcoMarket</h1>
+  <form id="contact-form">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" placeholder="Escribe tu nombre" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Escribe tu correo electrónico" required>
+
+    <label for="message">Mensaje:</label>
+    <textarea id="message" name="message" placeholder="Escribe tu mensaje aquí" required></textarea>
+
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="form-feedback"></div>
+
+  <script>
+    // Validación y envío del formulario
+    document.getElementById('contact-form').addEventListener('submit', function (event) {
+      event.preventDefault(); // Evita el envío predeterminado del formulario
+
+      // Obtener los valores de los campos
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const feedback = document.getElementById('form-feedback');
+
+      // Validar el correo electrónico
+      function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+      }
+
+      // Comprobar que los campos no estén vacíos y que el correo sea válido
+      if (!name || !email || !message) {
+        feedback.textContent = "Por favor, completa todos los campos.";
+        feedback.className = "error";
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        feedback.textContent = "Por favor, introduce un correo válido.";
+        feedback.className = "error";
+        return;
+      }
+
+      // Si todo está bien
+      feedback.textContent = "¡Mensaje enviado con éxito! Pronto nos pondremos en contacto contigo.";
+      feedback.className = "success";
+
+      
+      this.reset();
+    });
+  </script>
+</body>
+</html>
